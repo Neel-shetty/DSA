@@ -15,9 +15,9 @@ int pow(int base,int power )
 int main()
 {
     int base,power;
-    cout<<"enter the base";
+    cout<<"enter the base ";
     cin>>base;
-    cout<<"enter the power";
+    cout<<"enter the power ";
     cin>>power;
     cout<<pow(base,power);
 }
