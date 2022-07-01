@@ -42,7 +42,8 @@ int main()
     l.insert(2,2);
     node* head = l.begin();
 
-    int key; cin>>key;
+    int key; 
+    cin>>key;
 
     if(recse(head,key))
     {
@@ -50,7 +51,7 @@ int main()
     }
     else
     {
-        cout<<"not found"<<endl;
+        cout<<"not found"<<endl; 
     }
 
     while(head!=NULL)
@@ -58,5 +59,5 @@ int main()
         cout<<head->getdata()<<"->";
         head = head->next;
     }
-
+ 
 }

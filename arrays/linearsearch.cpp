@@ -18,11 +18,11 @@ int main()
     int n = sizeof(arr)/sizeof(int);
     //linearsearch(int arr[], int n, int key)
     int key;
-    cin>>key;
+    //cin>>key;
 
     int index = linearsearch(arr,n,key);
     if(index!=1){
-        cout<<key<<" is present at index "<<index<<endl;
+        cout<<key<<" is present at index "<<index;//<<endl;
     
     }
     else{
