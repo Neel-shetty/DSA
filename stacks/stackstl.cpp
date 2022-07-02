@@ -1,6 +1,34 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+void insertdown(stack<string> &boobs, string data)
+{
+    if(boobs.empty())
+    {
+        boobs.push(data);
+        return;
+    }
+
+    string temp = boobs.top();
+    boobs.pop();
+
+    insertdown(boobs,data);
+    boobs.push(temp);
+}
+
+void reverse(stack<string> &boobs)
+{
+    if(boobs.empty())
+    {
+        return;
+    }
+    string t = boobs.top();
+    boobs.pop();
+    reverse(boobs);
+    insertdown(boobs,t);
+    
+}
+
 int main()
 {
     stack<string> boobs;
@@ -8,6 +36,10 @@ int main()
     boobs.push("tits");
     boobs.push("boobies");
     boobs.push("mommy milkers");
+
+
+    //insertdown(boobs, "boob");
+    reverse(boobs);
 
     while(!boobs.empty())
     {
