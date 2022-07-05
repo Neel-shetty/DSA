@@ -5,6 +5,7 @@ using namespace std;
 //output - 1 2 4 5 7 3 6
 //outpul inorder - 4 2 7 5 1 3 6
 //output postorder - 4 7 5 2 6 3 1
+//input 2 - 1 2 3 4 5 -1 6 -1 -1 7 -1 -1 -1 -1 -1
 
 class node
 {
@@ -141,6 +142,63 @@ node* levelbuild()
     return root;
 }
 
+int height(node*root)
+{
+    if(root==NULL)
+    {
+        return 0;
+    }
+    int h1 = height(root->left);
+    int h2 = height(root->right);
+
+    return 1 + max(h1,h2);
+}
+
+int diameter(node*root)
+{
+    if(root==NULL)
+    {
+        return 0;
+    }
+
+    int d1= height(root->left)+height(root->right);
+    int d2= diameter(root->left);
+    int d3= diameter(root->right);
+
+    return max(d1,max(d2,d3));
+}
+
+class hdpair
+{
+    public:
+            int height;
+            int diameter;
+};
+
+hdpair optdiameter(node*root)
+{
+    hdpair p;
+
+    if(root==NULL)
+    {
+        p.height=p.diameter=0;
+        return p;
+    }
+
+    hdpair left = optdiameter(root->left);
+    hdpair right= optdiameter(root->right);
+
+    p.height=max(left.height,right.height)+1;
+
+    int d1 = left.height+right.height;
+    int d2 = left.diameter;
+    int d3 = right.diameter;
+
+    p.diameter=max(d1,max(d2,d3));
+    return p;
+
+}
+
 int main()
 {
    /* node*root=buildtree();
@@ -155,5 +213,7 @@ int main()
 
     node*root=levelbuild();
     levelorder(root);
+    cout<<diameter(root)<<endl;
+    cout<<optdiameter(root).diameter;
     
 }
