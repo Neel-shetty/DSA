@@ -7,9 +7,9 @@ class graph
     list<int> *arrayOfList;
 
 public:
-    graph(int verticeInput)
+    graph(int vertices)
     {
-        vertices=verticeInput;
+        this->vertices=vertices;
         arrayOfList=new list<int>[vertices];
     }
 
@@ -62,27 +62,43 @@ public:
         }
     }
 
-    void dfsHelper(int node,bool *isVisited)
+    void topologicalSort()
     {
-        isVisited[node]=true;
-        cout<<node<<",";
+        vector<int> indegree(vertices,0);
 
-        for(int neighbour:arrayOfList[node])
+        for(int i=0;i<vertices;i++)
         {
-            if(!isVisited[neighbour])
+            for(auto neighbour : arrayOfList[i])
             {
-                dfsHelper(neighbour,isVisited);
+                indegree[neighbour]++;
             }
         }
-        return;
-    }
 
-    void dfs(int source)
-    {
-        bool *isVisited=new bool[vertices]{0};
-        dfsHelper(source,isVisited);
+        queue<int> queue;
+        for(int i=0;i<vertices;i++)
+        {
+            if(indegree[i]==0)
+            {
+                queue.push(i);
+            }
+        }
+
+        while(!queue.empty())
+        {
+            int node=queue.front();
+            cout<<node<<" ";
+            queue.pop();
+
+            for(auto neighbour: arrayOfList[node])
+            {
+                indegree[neighbour]--;
+                if(indegree[neighbour]==0)
+                {
+                    queue.push(neighbour);
+                }
+            }
+        }
     }
-    
 
 };
 
@@ -90,14 +106,13 @@ int main()
 {
     graph graph(7);
     graph.addEdge(0,1);
-    graph.addEdge(1,2);
+    graph.addEdge(0,4);
+    graph.addEdge(2,1);
+    graph.addEdge(3,4);
+    graph.addEdge(4,5);
     graph.addEdge(2,3);
     graph.addEdge(3,5);
-    graph.addEdge(5,6);
-    graph.addEdge(4,5);
-    graph.addEdge(0,4);
-    graph.addEdge(3,4);
-    graph.dfs(1);
+    graph.topologicalSort();
 
     return 0;
 
