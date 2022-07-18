@@ -40,6 +40,7 @@ int main()
     l.push_back(4);
     l.insert(10,0);
     l.insert(2,2);
+    l.push_front(6);
     node* head = l.begin();
 
     int key; 
